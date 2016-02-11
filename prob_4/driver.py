@@ -2,7 +2,7 @@ import s4b
 import numpy as np
 import matplotlib.pyplot as mpl
 def main(x, iseed):
-    n = 100000
+    n = 1000
     # iseed = 1234
     # x = 45
     rst = []
@@ -25,16 +25,16 @@ def main(x, iseed):
     return mean, sigma_hat, se, iseed
 
 if __name__ == '__main__':
-    x = 37
+    x = 0
     iseed = 98723
     xarray = []
     yarray = []
-    while x<=43:
+    while x<=60:
         xarray.append(x)
         # print "x=", x
         mean, sigma_hat, se, iseed = main(x, iseed)
         print x, " & ", mean, " & ", sigma_hat, " & ", se, " \\\\"
-        x += 1
+        x += 5
         # print "---"
 
         yarray.append(mean)
