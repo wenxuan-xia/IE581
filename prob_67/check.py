@@ -21,7 +21,6 @@ def main():
         x, iseed = LaplaceGenerator.LaplaceGenerator(lbda, iseed)
         xarray.append(x)
 
-    print xarray
     p = calculate_x_bar_n(xarray, s)
     print p
 
