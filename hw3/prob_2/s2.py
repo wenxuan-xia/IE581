@@ -1,6 +1,6 @@
 import s1
 import numpy as np
-from scipy.stats import norm, rankdata
+from scipy.stats import norm, rankdata, expon
 
 def rho():
     nparray = np.empty((2,2), dtype=float)
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     n = 10000
     seed = 1234
     rhoMatrix = rho()
-    print rhoMatrix
+    # print rhoMatrix
     myArrayX = []
     myArrayY = []
     for i in range(0, n):
@@ -28,15 +28,27 @@ if __name__ == '__main__':
         myArrayX.append(MVN[0])
         myArrayY.append(MVN[1])
 
+    myArrayX = expon.ppf(myArrayX)
     Xindex = rankdata(myArrayX)
     Yindex = rankdata(myArrayY)
 
-    # print Xindex
-    # print Yindex
-    d = Xindex - Yindex
-    print d
-    dsqr = 0.0
-    for i in d:
-        dsqr += i**2
-    rs = 1.0 - 6*dsqr/(n*(n**2-1))
-    print rs
+    # print myArrayX
+    # print myArrayY
+
+    xmean = np.mean(myArrayX)
+    ymean = np.mean(myArrayY)
+
+    upper = 0
+    for i in range(0, n):
+        upper += (myArrayX[i]-xmean)*(myArrayY[i]-ymean)
+
+    lowerleft = 0
+    lowerright = 0
+    for i in range(0, n):
+        lowerleft += (myArrayX[i] - xmean)**2
+        lowerright += (myArrayY[i] - ymean)**2
+    lowerleft = np.sqrt(lowerleft)
+    lowerright = np.sqrt(lowerright)
+
+    rst = upper/(lowerleft * lowerright)
+    print rst
