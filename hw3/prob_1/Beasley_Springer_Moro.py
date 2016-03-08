@@ -1,4 +1,5 @@
 import u16807d
+import numpy as np
 
 def Beasley_Springer_Moro(seed):
     a0=2.50662823884;
@@ -21,6 +22,26 @@ def Beasley_Springer_Moro(seed):
     c7=0.0000002888167364;
     c8=0.0000003960315187;
 
-    u1, seed = u16807d.u16807d(seed)
-    u2, seed = u16807d.u16807d(seed)
-    
+    seed, u1 = u16807d.u16807d(seed)
+    y = u1 - 0.5
+    result = 0
+
+
+    if (abs(y) < 0.42):
+        r = y*y
+        result = y * (a0 + r*(a1 + r*(a2 + r*a3))) / (1.0 + r*(b0 + r*(b1 + r*(b2 + r*b3))))
+    else:
+        if (y <= 0):
+            r = u1
+        else:
+            r = 1 - u1
+        # print r
+        s = np.log( - np.log(r) )
+        t = c0 + s*(c1 + s*(c2 + s*(c3 + s*(c4 + s*(c5 + s*(c6 + s*(c7+ s*c8)))))))
+
+        if (u1>0.5):
+            result = t
+        else:
+            result = -t
+
+    return result, seed
