@@ -19,7 +19,6 @@ if __name__ == '__main__':
     n = 10000
     seed = 1234
     rhoMatrix = rho()
-    # print rhoMatrix
     myArrayX = []
     myArrayY = []
     for i in range(0, n):
@@ -31,9 +30,6 @@ if __name__ == '__main__':
     myArrayX = expon.ppf(myArrayX)
     Xindex = rankdata(myArrayX)
     Yindex = rankdata(myArrayY)
-
-    # print myArrayX
-    # print myArrayY
 
     xmean = np.mean(myArrayX)
     ymean = np.mean(myArrayY)
